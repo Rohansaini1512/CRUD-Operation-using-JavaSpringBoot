@@ -35,7 +35,7 @@ Follow these steps to clone and run the project:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Rohansaini1512/job-crud-application.git
+git clone https://github.com/Rohansaini1512/CRUD-Operation-using-JavaSpringBoot.git
 cd job-crud-application
 ```
 
@@ -49,7 +49,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-The application will start running on **`http://localhost:8080`** by default.
+The application will start running on **`http://localhost:9091`** by default.
 
 ---
 
