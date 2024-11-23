@@ -1,13 +1,14 @@
 package com.rohan.jobApp.job;
 
+import com.rohan.jobApp.company.Company;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-// import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-// @Table(name="job_table")
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +19,23 @@ public class Job {
     private String maxSalary;
     private String location;
 
+    @ManyToOne
+    @JoinColumn(name = "company_id") // This maps the foreign key to the 'company' table
+    private Company company;
+
+    // Default Constructor
     public Job() {
     }
 
     // Constructor
-    public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
+    public Job(Long id, String title, String description, String minSalary, String maxSalary, String location, Company company) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
         this.location = location;
+        this.company = company;
     }
 
     // Getters and Setters
@@ -78,5 +85,13 @@ public class Job {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
