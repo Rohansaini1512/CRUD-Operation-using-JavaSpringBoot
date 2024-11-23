@@ -8,21 +8,23 @@ import org.springframework.stereotype.Service;
 import com.rohan.jobApp.company.Company;
 import com.rohan.jobApp.company.CompanyRepository;
 import com.rohan.jobApp.company.CompanyService;
-import com.rohan.jobApp.job.Job;
+// import com.rohan.jobApp.job.Job;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
+    private CompanyRepository companyRepository;
     public CompanyServiceImpl(CompanyRepository companyRepository){
+        this.companyRepository = companyRepository;
     }
 
     @Override
     public List<Company> getAllCompanies() {
-        return null;
+        return companyRepository.findAll();
     }
 
     @Override
-    public boolean updateCompany(Company company, Long id) {
-        Optional<Job> companyOptional = companyRepository.findById(id);
+    public boolean updateCompany(Long id ,Company company) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
         if(companyOptional.isPresent()){
             Company companyToUpdate = companyOptional.get();
             companyToUpdate.setDescription(company.getDescription());
@@ -34,6 +36,11 @@ public class CompanyServiceImpl implements CompanyService{
                 return false;
             }
         
+    }
+
+    @Override
+    public void createCompany(Company company) {
+        companyRepository.save(company);
     }
 
 }
