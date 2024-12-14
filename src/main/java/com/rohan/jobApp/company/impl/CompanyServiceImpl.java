@@ -23,24 +23,40 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public boolean updateCompany(Long id ,Company company) {
+    public boolean updateCompany(Company company, Long id) {
         Optional<Company> companyOptional = companyRepository.findById(id);
-        if(companyOptional.isPresent()){
+        if (companyOptional.isPresent()) {
             Company companyToUpdate = companyOptional.get();
             companyToUpdate.setDescription(company.getDescription());
             companyToUpdate.setName(company.getName());
-            companyToUpdate.setJobs(company.getJobs());
+            
+            // Handle jobs field properly
+            if (company.getJobs() != null) {
+                companyToUpdate.setJobs(company.getJobs());
+            }
+            
             companyRepository.save(companyToUpdate);
             return true;
-            }else{
-                return false;
-            }
-        
+        } else {
+            return false;
+        }
     }
-
+    
     @Override
     public void createCompany(Company company) {
         companyRepository.save(company);
     }
+    
+    @Override
+    public boolean deleteCompany(Long id){
+         Optional<Company>companyOptional = companyRepository.findById(id);
+        if(companyOptional.isPresent()){
+            // Company companyToDelete = companyOptional.get();
+            companyRepository.deleteById(id);
+            return true;
 
+        }else{
+            return false;
+        }
+    }
 }
