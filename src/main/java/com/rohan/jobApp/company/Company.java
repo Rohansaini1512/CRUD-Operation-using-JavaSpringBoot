@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rohan.jobApp.job.Job;
+import com.rohan.jobApp.review.Review;
 
 @Entity
 public class Company {
@@ -25,8 +26,20 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Job> jobs;
 
+    @OneToMany(mappedBy = "Company")
+    private List<Review>reviews;
+
     // Default constructor
     public Company() {
+    }
+
+    // Getters and Setters
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review>reviews) {
+        this.reviews = reviews;
     }
 
     // Getters and Setters
